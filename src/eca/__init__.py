@@ -1,9 +1,9 @@
-from .data import get_main_data_folder
-from .utils import dms_to_decimal, quarter2dates
+from ..data import get_main_data_folder
+from ..utils import dms_to_decimal, quarter2dates
 
 import pandas as pd
 
-def load_stations_data_per_quarter(year, quarter):
+def from_timeperiod(year, quarter):
     if quarter not in [1, 2, 3, 4]:
         raise ValueError("quarter must be in {1, 2, 3, 4}")
     
@@ -18,6 +18,23 @@ def load_stations_data_per_quarter(year, quarter):
         df = _build_stations_data_per_quarter(year, quarter)
 
     return df
+
+def meta_from_timeperiod(year, quarter):
+
+    eca_tx_datafolder = get_main_data_folder() / "ECA_blend_tx"
+    stations_filepath = eca_tx_datafolder / "stations.txt"
+
+    stations_df = pd.read_csv(
+        stations_filepath,
+        skiprows=17,
+        skipinitialspace=True
+    )
+
+    stations_df['LAT_decimal'] = stations_df['LAT'].apply(dms_to_decimal)
+    stations_df['LON_decimal'] = stations_df['LON'].apply(dms_to_decimal)
+
+    return stations_df
+
 
 def _build_stations_data_per_quarter(year, quarter):
 

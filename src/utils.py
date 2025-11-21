@@ -23,11 +23,11 @@ def dms_to_decimal(dms_str):
     return decimal
 
 
-def convert_ndvi_to_real_scale(ndvi_img, out_meta):
+def convert_ndvi_to_real_scale(ndvi_series, meta):
     # The NDVI is stored in int8 format on a 0/254 scale, and nodata is 255.
     # This function converts it to a float format on a -1/1 scale, and replace nodata with np.nan.
-    ndvi_img = ndvi_img.astype(float)
-    ndvi_img[ndvi_img == out_meta["nodata"]] = np.nan
+    ndvi_img = ndvi_series.astype(float)
+    ndvi_img[ndvi_img == meta["nodata"]] = np.nan
     ndvi_img = ndvi_img / 254 * 2 - 1
     return ndvi_img
 
