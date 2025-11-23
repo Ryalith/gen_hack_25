@@ -71,6 +71,12 @@ def quarter2dates(year, quarter):
     if quarter not in [1, 2, 3, 4]:
         raise ValueError("quarter must be in 1, 2, 3, 4")
 
+era5_variables = [
+    "2m_temperature",
+    "total_precipitation",
+    "10m_u_component_of_wind",
+    "10m_v_component_of_wind",
+]
 
 variable2statistic = {
     "2m_temperature": "daily_maximum",

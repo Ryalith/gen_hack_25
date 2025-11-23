@@ -11,10 +11,10 @@ def from_timeperiod(year, quarter):
     station_data_per_quarter_filepath = eca_tx_datafolder / f"stations_{year}_{quarter}.csv"
 
     if station_data_per_quarter_filepath.exists():
-        print(f"Found data for {year=}, {quarter=}, loading Dataframe ...")
+        print(f"Found ECA data for {year=}, {quarter=}, loading Dataframe ...")
         df = pd.read_csv(station_data_per_quarter_filepath)
     else:
-        print(f"No data for {year=}, {quarter=}, building Dataframe ...")
+        print(f"No ECA data for {year=}, {quarter=}, building Dataframe ...")
         df = _build_stations_data_per_quarter(year, quarter)
 
     return df
